@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <style>
+        /* Reset default browser styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Global styles */
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        /* Navbar styles */
+        .navbar {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+        }
+
+        .navbar ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar ul li {
+            display: inline-block;
+            margin-right: 20px;
+        }
+
+        .navbar ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        /* Sidebar styles */
+        .sidebar {
+            width: 250px;
+            background-color: #555;
+            color: #fff;
+            padding: 20px;
+            float: left;
+            height: calc(100vh - 80px);
+        }
+
+        .sidebar ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar ul li {
+            margin-bottom: 10px;
+        }
+
+        .sidebar ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        /* Content styles */
+        .content {
+            margin-left: 250px;
+            padding: 20px;
+        }
+
+        /* Footer styles */
+        .footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        /* Center table */
+        .center-table {
+            margin: 0 auto;
+            width: 80%;
+        }
+
+        /* Responsive styles */
+        @media(max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                float: none;
+            }
+
+            .content {
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="navbar">
+    <ul>
+        <li><a href="#"><h3 style="background-color: yellow;color: red;padding: 10px;">ADMIN ->{{logger_data.username}}</h3></a></li>
+        <li><a href="#">Dashboard</a></li>
+        <li><a href="#">Settings</a></li>
+        <li><a href="/login">Logout</a></li>
+    </ul>
+</div>
+
+<div class="sidebar">
+    <ul>
+        <li><a href="#">Dashboard</a></li>
+        <li><a href="#">Users</a></li>
+        <li><a href="#">Products</a></li>
+        <li><a href="#">Orders</a></li>
+        <li><a href="#">Settings</a></li>
+    </ul>
+</div>
+
+<div class="content">
+
+    {% for j in messages %}
+    {% if 'mail_sent' in j.tags %}
+    <h2 style="color: red;background-color: greenyellow;padding: 10px;">{{j}}</h2>
+    {% endif %}
+    {% endfor %}
+
+    <h2>Appoinment Details</h2>
+    <div class="center-table" style="overflow-y: auto; max-height: 400px;">
+        <table border="1">
+            <tr>
+                <th>ID</th>
+                <th>Firstname</th>
+                <th>Lastname</th>
+                <th>Email Id</th>
+                <th>Mobile No</th>
+                <th>Appoinment Date</th>
+                <th>Booking time</th>
+                <th>action</th>
+            </tr>
+
+            {% for i in view_data %}
+            <tr>
+                <td>{{i.id}}</td>
+                <td>{{i.first_name}}</td>
+                <td>{{i.last_name}}</td>
+                <td>{{i.email_id}}</td>
+                <td>{{i.mobile_no}}</td>
+                <td>{{i.appoinment_date}}</td>
+                <td>{{i.booking_datetime}}</td>
+                <td><a href="/confimation_mail_send/{{i.id}}"><button>confirmation mail</button> </a></td>
+            </tr>
+            {% endfor %}
+            
+        </table>
+    </div>
+</div>
+
+<div class="footer">
+    &copy; 2024 Admin Dashboard
+</div>
+
+</body>
+</html>
